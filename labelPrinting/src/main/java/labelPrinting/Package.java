@@ -234,7 +234,7 @@ public Package() {
 //    	}
 //    	public Builder set
 //    }
-    public void GetPackageLabels() throws SOAPException, IOException {
+    public SOAPMessage GetPackageLabels() throws SOAPException, IOException {
     	
     	String soapAction="http://www.usps-cpas.com/usps-cpas/GSSAPI/GetPackageLabels";
     	MessageFactory messageFactory=MessageFactory.newInstance();
@@ -253,7 +253,7 @@ public Package() {
 		Token token=new Token();
 		soapBodyElem5.addTextNode(token.getAccess_token());
 		SOAPMessage soapResponse=Utility.callUspsApiService(Utility.soapEndPointUrl, soapAction, soapMessage);
-		
+		return soapResponse;
     }
     public void AddPackageInReceptacle() throws SOAPException {
     	String soapAction="http://www.usps-cpas.com/usps-cpas/GSSAPI/GetPackageLabels";
