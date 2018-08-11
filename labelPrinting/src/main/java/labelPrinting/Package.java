@@ -1,5 +1,6 @@
 package labelPrinting;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -106,7 +107,7 @@ public class Package {
 	private String RecipientPostal_Code_Foreign;
 	private String PackageOrderDate;
 	private String InsuredAmount;
-	private String ;
+	
 	
     public Package(HashMap map) {
     	this.PackageId=(String) map.get("PackageId");
@@ -206,7 +207,10 @@ public class Package {
     	this.PackageOrderDate=(String)map.get("PackageOrderDate");
     	this.InsuredAmount=(String)map.get("InsuredAmount");
     }
-    public XmlDocument LoadPackageData(XmlDocument xmlDoc, String AccessToken)
+public Package() {
+		// TODO Auto-generated constructor stub
+	}
+	//    public XmlDocument LoadPackageData(XmlDocument xmlDoc, String AccessToken)
 //    public static class Builder {
 //    	private Package instance;
 //    	public Builder() {
@@ -248,10 +252,10 @@ public class Package {
 		soapBodyElem4.addTextNode(this.FileFormat);
 		Token token=new Token();
 		soapBodyElem5.addTextNode(token.getAccess_token());
-		Utility.callUspsApiService(Utility.soapEndPointUrl, soapAction, soapMessage);
+		SOAPMessage soapResponse=Utility.callUspsApiService(Utility.soapEndPointUrl, soapAction, soapMessage);
 		
     }
-    public void AddPackageInReceptacle() {
+    public void AddPackageInReceptacle() throws SOAPException {
     	String soapAction="http://www.usps-cpas.com/usps-cpas/GSSAPI/GetPackageLabels";
     	MessageFactory messageFactory=MessageFactory.newInstance();
 		SOAPMessage soapMessage=messageFactory.createMessage();
@@ -259,19 +263,28 @@ public class Package {
     	
     	
     }
-    public void Calculate_postage() {
+    public void Calculate_postage() throws SOAPException {
     	String soapAction="http://www.usps-cpas.com/usps-cpas/GSSAPI/GetPackageLabels";
     	MessageFactory messageFactory=MessageFactory.newInstance();
 		SOAPMessage soapMessage=messageFactory.createMessage();
 		SOAPBody soapBody=Utility.createSoapEnvelope(soapMessage).getBody();
     	
     }
-    public void LoadAndRecordLabeledPackage() {
+    public  SOAPMessage LoadAndRecordLabeledPackage(String xmlString,String token) throws SOAPException, IOException {
     	
-    	String soapAction="http://www.usps-cpas.com/usps-cpas/GSSAPI/GetPackageLabels";
+    	String soapAction="http://www.usps-cpas.com/usps-cpas/GSSAPI/LoadAndRecordLabeledPackage";
     	MessageFactory messageFactory=MessageFactory.newInstance();
 		SOAPMessage soapMessage=messageFactory.createMessage();
 		SOAPBody soapBody=Utility.createSoapEnvelope(soapMessage).getBody(); 
+		SOAPElement soapElement=soapBody.addChildElement("LoadAndRecordLabeledPackage", "", Utility.NamespaceUrl);
+		SOAPElement soapElement1=soapElement.addChildElement("xmlDoc");
+		SOAPElement soapElement2=soapElement.addChildElement("AccessToken");
+		soapElement1.addTextNode(xmlString );
+		soapElement2.addTextNode(token);
+		
+		
+		SOAPMessage soapResponse=Utility.callUspsApiService(Utility.soapEndPointUrl, soapAction, soapMessage);
+		return soapResponse;
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

@@ -56,26 +56,27 @@ public class Utility {
 	        return soapMessage;
 			
 		} 
-	 public static void callUspsApiService(String soapApiUrl,String soapAction,SOAPMessage soapMessage) {
-		 try {
+	 public static SOAPMessage callUspsApiService(String soapApiUrl,String soapAction,SOAPMessage soapMessage) throws SOAPException, IOException {
+		 
 				SOAPConnectionFactory soapConnectionFactory =SOAPConnectionFactory.newInstance();
 				SOAPConnection soapConnection=soapConnectionFactory.createConnection();
 				SOAPMessage soapResponse=soapConnection.call(createSOAPRequest(soapAction,soapMessage), soapApiUrl);
 				// Print the SOAP Response
-	            System.out.println("Response SOAP Message:");
-	            soapResponse.writeTo(System.out);
-	            System.out.println();
-
+//				  System.out.println("Response_first SOAP Message:");
+//		            soapResponse.writeTo(System.out);
+//		            System.out.println();
+		            
 	            soapConnection.close();
-			}catch(Exception e ) {
-				System.err.println("\nError occurred while sending SOAP Request to Server!\nMake sure you have the correct endpoint URL and SOAPAction!\n");
-	            e.printStackTrace();
+	            return soapResponse;
+		
 		 
 		 
 		 
 		 
 		 
 		 
-	        }
+	        
+		 
+		
 	 }
 }

@@ -2,12 +2,13 @@ package labelPrinting;
 
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPBody;
+import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
 public class Receptacle {
 	
 	
-public void CreateReceptacleForRateTypeToDestination() {
+public void CreateReceptacleForRateTypeToDestination() throws SOAPException {
 	String soapAction="http://www.usps-cpas.com/usps-cpas/GSSAPI/GetPackageLabels";
 	MessageFactory messageFactory=MessageFactory.newInstance();
 	SOAPMessage soapMessage=messageFactory.createMessage();
@@ -16,7 +17,7 @@ public void CreateReceptacleForRateTypeToDestination() {
 	
 	
 }
-public void GetReceptacleLabel() {
+public void GetReceptacleLabel() throws SOAPException {
 	
 	String soapAction="http://www.usps-cpas.com/usps-cpas/GSSAPI/GetPackageLabels";
 	MessageFactory messageFactory=MessageFactory.newInstance();
@@ -25,7 +26,7 @@ public void GetReceptacleLabel() {
 	
 	
 }
-public void MoveReceptacleToOpenDispatch(){
+public void MoveReceptacleToOpenDispatch() throws SOAPException{
 	
 	String soapAction="http://www.usps-cpas.com/usps-cpas/GSSAPI/GetPackageLabels";
 	MessageFactory messageFactory=MessageFactory.newInstance();

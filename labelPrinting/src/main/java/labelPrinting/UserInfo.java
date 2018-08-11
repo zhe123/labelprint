@@ -3,9 +3,9 @@ package labelPrinting;
 public class UserInfo {
 	
 	
-	public static String userID="UANGOTEST";
-	public static String password="UANG06demo";
-	public static String locationID="TESTSITEUANGOCOLTUSM";
-	public static String workstationID="DESKTOP-UC2FDT8";
+	public static final String userID="UANGOTEST";
+	public static final String password="UANG06demo";
+	public static final String locationID="TESTSITEUANGOCOLTUSM";
+	public static final String workstationID="DESKTOP-UC2FDT8";
 
 }
